@@ -1,0 +1,145 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String @id @default(uuid())
+  username    String @unique
+  password    String
+  namaLengkap String
+  role        Role
+}
+
+model Administrasi {
+  id     String  @id @default(uuid())
+  Code   Code    @relation(fields: [codeId], references: [id])
+  codeId String
+  topik  String
+  tahun  String?
+  asal   String?
+  noLaci String
+  gambar String?
+}
+
+model Code {
+  id           String         @id @default(uuid())
+  code         String         @unique
+  nama         String
+  Administrasi Administrasi[]
+}
+
+model DaerahKonfrens {
+  id                 String       @id @default(uuid())
+  namaDaerahKonfrens String
+  Sertifikat         Sertifikat[]
+}
+
+model Department {
+  id             String  @id @default(uuid())
+  namaDepartment String
+  Surat          Surat[]
+}
+
+model FisikBangunan {
+  id         String       @id @default(uuid())
+  namaFisik  String
+  Sertifikat Sertifikat[]
+}
+
+model Huruf {
+  id String @id @db.Char(1)
+}
+
+model Institusi {
+  id            String          @id @default(uuid())
+  namaInstitusi String
+  ServiceRecord ServiceRecord[]
+}
+
+model Nomor {
+  id   String @id @default(uuid())
+  nama String @unique
+}
+
+model Pensiun {
+  id         String  @id @default(uuid())
+  nama       String
+  rate       Rate
+  status     Status
+  keterangan String?
+  noLaci     String
+  gambar     String?
+}
+
+model Sertifikat {
+  id               String           @id @default(uuid())
+  DaerahKonfrens   DaerahKonfrens   @relation(fields: [daerahKonfrensId], references: [id])
+  daerahKonfrensId String
+  jemaat           String
+  jenis            JenisSertifikat?
+  sertifikat       String?
+  FisikBangunan    FisikBangunan    @relation(fields: [fisikBangunanId], references: [id])
+  fisikBangunanId  String
+  value            String?
+  keterangan       String?
+  noLaci           String
+  gambar           String?
+}
+
+model ServiceRecord {
+  id          String    @id @default(uuid())
+  status      Status
+  Institusi   Institusi @relation(fields: [institusiId], references: [id])
+  institusiId String
+  nama        String
+  keterangan  String?
+  noFile      String
+  gambar      String?
+}
+
+model Surat {
+  id           String     @id @default(uuid())
+  Department   Department @relation(fields: [departmentId], references: [id])
+  departmentId String
+  jenis        JenisSurat
+  tahun        String
+  asal         String
+  topic        String
+  noLaci       String
+  gambar       String?
+}
+
+enum Role {
+  ADMIN
+  OPERATOR
+  USER
+}
+
+enum Rate {
+  Single
+  Family
+}
+
+enum Status {
+  Active
+  Inactive
+}
+
+enum JenisSertifikat {
+  original
+  copy
+}
+
+enum JenisSurat {
+  IN
+  OUT
+  IN_OUT
+}
