@@ -11,6 +11,7 @@ import {
   ParseFilePipe,
   MaxFileSizeValidator,
   FileTypeValidator,
+  Query,
 } from '@nestjs/common';
 import { AdministrationService } from './administration.service';
 import { CreateAdministrationDto } from './dto/create-administration.dto';
@@ -54,8 +55,8 @@ export class AdministrationController {
   }
 
   @Get()
-  findAll() {
-    return this.administrationService.findAll();
+  findAll(@Query('search') search: string) {
+    return this.administrationService.findAll(search);
   }
 
   @Get(':id')

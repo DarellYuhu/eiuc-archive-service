@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { CreateAdministrationDto } from './dto/create-administration.dto';
 import { UpdateAdministrationDto } from './dto/update-administration.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -17,8 +17,26 @@ export class AdministrationService {
     });
   }
 
-  findAll() {
-    return `This action returns all administration`;
+  async findAll(search: string) {
+    const insensitiveContains = (field: string) => ({
+      [field]: { contains: search, mode: 'insensitive' },
+    });
+    const fields = ['asal', 'noLaci', 'topik', 'tahun'];
+    const codeFields = ['nama', 'code'];
+
+    const data = await this.prisma.administrasi.findMany({
+      where: {
+        OR: [
+          ...fields.map(insensitiveContains),
+          ...codeFields.map((field) => ({ Code: insensitiveContains(field) })),
+        ],
+      },
+    });
+
+    if (data.length === 0) {
+      throw new HttpException('Data not found', 404);
+    }
+    return data;
   }
 
   findOne(id: number) {
