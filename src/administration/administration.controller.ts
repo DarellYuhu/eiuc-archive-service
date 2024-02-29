@@ -36,6 +36,7 @@ export class AdministrationController {
     }),
   )
   create(
+    @Body() createAdministrationDto: CreateAdministrationDto,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -46,7 +47,6 @@ export class AdministrationController {
       }),
     )
     gambar: Express.Multer.File,
-    @Body() createAdministrationDto: CreateAdministrationDto,
   ) {
     return this.administrationService.create({
       ...createAdministrationDto,
@@ -65,15 +65,39 @@ export class AdministrationController {
   }
 
   @Patch(':id')
+  @UseInterceptors(
+    FileInterceptor('gambar', {
+      storage: diskStorage({
+        destination: './public/uploads/administration',
+        filename: (_, file, cb) => {
+          const filename = `${Date.now()}-${file.originalname}`;
+          return cb(null, filename);
+        },
+      }),
+    }),
+  )
   update(
     @Param('id') id: string,
     @Body() updateAdministrationDto: UpdateAdministrationDto,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 20000000 }),
+          new FileTypeValidator({ fileType: '.(png|jpeg|jpg)' }),
+        ],
+        fileIsRequired: false,
+      }),
+    )
+    gambar: Express.Multer.File,
   ) {
-    return this.administrationService.update(+id, updateAdministrationDto);
+    return this.administrationService.update(id, {
+      ...updateAdministrationDto,
+      gambar,
+    });
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.administrationService.remove(+id);
+    return this.administrationService.remove(id);
   }
 }

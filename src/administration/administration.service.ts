@@ -58,11 +58,62 @@ export class AdministrationService {
     return `This action returns a #${id} administration`;
   }
 
-  update(id: number, updateAdministrationDto: UpdateAdministrationDto) {
-    return `This action updates a #${id} administration`;
+  update(id: string, updateAdministrationDto: UpdateAdministrationDto) {
+    const { gambar, ...rest } = updateAdministrationDto;
+    return this.prisma.$transaction(async (prisma) => {
+      let fileId: string | undefined = undefined;
+      const prevFile = await prisma.administrasi.findUnique({
+        where: {
+          id: id,
+        },
+      });
+      if (gambar) {
+        if (prevFile?.fileId) {
+          await prisma.file.delete({
+            where: {
+              id: prevFile.fileId,
+            },
+          });
+        }
+        const gambarPayload = {
+          filename: gambar.filename,
+          path: gambar.path,
+          mimetype: gambar.mimetype,
+          destination: gambar.destination,
+        };
+        fileId = (
+          await prisma.file.create({
+            data: gambarPayload,
+          })
+        ).id;
+      }
+      return prisma.administrasi.update({
+        where: {
+          id,
+        },
+        data: {
+          fileId,
+          ...rest,
+        },
+      });
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} administration`;
+  remove(id: string) {
+    return this.prisma.$transaction(async (prisma) => {
+      const administration = await prisma.administrasi.delete({
+        where: {
+          id,
+        },
+      });
+
+      if (administration.fileId) {
+        await prisma.file.delete({
+          where: {
+            id: administration.fileId,
+          },
+        });
+      }
+    });
   }
 }

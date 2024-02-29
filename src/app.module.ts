@@ -5,13 +5,17 @@ import { AdministrationModule } from './administration/administration.module';
 import { PrismaService } from './prisma/prisma.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
+import { TasksModule } from './tasks/tasks.module';
 import configuration from 'config/configuration';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
     AdministrationModule,
     PrismaModule,
+    TasksModule,
     ConfigModule.forRoot({ load: [configuration] }),
+    ScheduleModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
