@@ -9,11 +9,26 @@ export class AdministrationService {
 
   create(createAdministrationDto: CreateAdministrationDto) {
     const { gambar, ...rest } = createAdministrationDto;
-    return this.prisma.administrasi.create({
-      data: {
-        gambar: gambar.path,
-        ...rest,
-      },
+    return this.prisma.$transaction(async (prisma) => {
+      let fileId: string | undefined = undefined;
+      if (gambar) {
+        const gambarPayload = {
+          filename: gambar.filename,
+          path: gambar.path,
+          mimetype: gambar.mimetype,
+          destination: gambar.destination,
+        };
+        const { id } = await prisma.file.create({
+          data: gambarPayload,
+        });
+        fileId = id;
+      }
+      return prisma.administrasi.create({
+        data: {
+          fileId,
+          ...rest,
+        },
+      });
     });
   }
 

@@ -25,8 +25,9 @@ model Administrasi {
   topik  String
   tahun  String?
   asal   String?
-  noLaci String
-  gambar String?
+  noLaci String  @unique
+  File   File?   @relation(fields: [fileId], references: [id], onDelete: SetNull)
+  fileId String?
 }
 
 model Code {
@@ -91,7 +92,8 @@ model Sertifikat {
   value            String?
   keterangan       String?
   noLaci           String
-  gambar           String?
+  File             File?            @relation(fields: [fileId], references: [id], onDelete: SetNull)
+  fileId           String?
 }
 
 model ServiceRecord {
@@ -102,7 +104,8 @@ model ServiceRecord {
   nama        String
   keterangan  String?
   noFile      String
-  gambar      String?
+  File        File?     @relation(fields: [fileId], references: [id], onDelete: SetNull)
+  fileId      String?
 }
 
 model Surat {
@@ -114,7 +117,20 @@ model Surat {
   asal         String
   topic        String
   noLaci       String
-  gambar       String?
+  File         File?      @relation(fields: [fileId], references: [id], onDelete: SetNull)
+  fileId       String?
+}
+
+model File {
+  id            String          @id @default(uuid())
+  filename      String
+  path          String
+  destination   String
+  mimetype      String
+  Administrasi  Administrasi[]
+  Sertifikat    Sertifikat[]
+  ServiceRecord ServiceRecord[]
+  Surat         Surat[]
 }
 
 enum Role {
