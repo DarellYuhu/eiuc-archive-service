@@ -41,7 +41,7 @@ export class AdministrationController {
       new ParseFilePipe({
         validators: [
           new MaxFileSizeValidator({ maxSize: 20000000 }),
-          new FileTypeValidator({ fileType: '.(png|jpeg|jpg)' }),
+          new FileTypeValidator({ fileType: '.(png|jpeg|jpg|pdf)' }),
         ],
         fileIsRequired: false,
       }),
@@ -83,7 +83,7 @@ export class AdministrationController {
       new ParseFilePipe({
         validators: [
           new MaxFileSizeValidator({ maxSize: 20000000 }),
-          new FileTypeValidator({ fileType: '.(png|jpeg|jpg)' }),
+          new FileTypeValidator({ fileType: '.(png|jpeg|jpg|pdf)' }),
         ],
         fileIsRequired: false,
       }),

@@ -21,6 +21,79 @@ async function main() {
       },
     ],
   });
+
+  await prisma.fisikBangunan.createMany({
+    data: [
+      {
+        namaFisik: 'Permanen',
+      },
+      {
+        namaFisik: 'Semi Permanen',
+      },
+      {
+        namaFisik: 'Tanah Kosong',
+      },
+      {
+        namaFisik: 'Permanen dan Lapangan',
+      },
+      {
+        namaFisik: 'Tidak Jelas',
+      },
+    ],
+  });
+
+  await prisma.daerahKonfrens.createMany({
+    data: [
+      {
+        namaDaerahKonfrens: 'WPM',
+      },
+      {
+        namaDaerahKonfrens: 'UNKLAB',
+      },
+      {
+        namaDaerahKonfrens: 'NMC',
+      },
+      {
+        namaDaerahKonfrens: 'PM',
+      },
+      {
+        namaDaerahKonfrens: 'EUIC',
+      },
+      {
+        namaDaerahKonfrens: 'NIM',
+      },
+      {
+        namaDaerahKonfrens: 'MC',
+      },
+      {
+        namaDaerahKonfrens: 'CSM',
+      },
+      {
+        namaDaerahKonfrens: 'MAH',
+      },
+      {
+        namaDaerahKonfrens: 'SSC',
+      },
+      {
+        namaDaerahKonfrens: 'MM',
+      },
+      {
+        namaDaerahKonfrens: 'LTM',
+      },
+      {
+        namaDaerahKonfrens: 'BGM',
+      },
+      {
+        namaDaerahKonfrens: 'NMBM',
+      },
+      {
+        namaDaerahKonfrens: 'AECS',
+      },
+      {
+        namaDaerahKonfrens: 'MNMC',
+      },
+    ],
+  });
 }
 main()
   .then(async () => {

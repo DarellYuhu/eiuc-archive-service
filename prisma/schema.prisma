@@ -76,7 +76,7 @@ model Pensiun {
   rate       Rate
   status     Status
   keterangan String?
-  noLaci     String
+  noLaci     String  @unique
   gambar     String?
 }
 
@@ -91,7 +91,7 @@ model Sertifikat {
   fisikBangunanId  String
   value            String?
   keterangan       String?
-  noLaci           String
+  noLaci           String           @unique
   File             File?            @relation(fields: [fileId], references: [id], onDelete: SetNull)
   fileId           String?
 }
@@ -116,7 +116,7 @@ model Surat {
   tahun        String
   asal         String
   topic        String
-  noLaci       String
+  noLaci       String     @unique
   File         File?      @relation(fields: [fileId], references: [id], onDelete: SetNull)
   fileId       String?
 }

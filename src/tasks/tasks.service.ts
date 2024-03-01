@@ -12,7 +12,7 @@ export class TasksService {
   async handleUnusedFile() {
     const paths = [
       './public/uploads/administration',
-      './public/uploads/letter',
+      './public/uploads/sertifikat',
     ];
 
     const filenamesFromDB = await this.prisma.file.findMany({

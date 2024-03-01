@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TasksModule } from './tasks/tasks.module';
 import configuration from 'config/configuration';
 import { ScheduleModule } from '@nestjs/schedule';
+import { SertifikatModule } from './sertifikat/sertifikat.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     TasksModule,
     ConfigModule.forRoot({ load: [configuration] }),
     ScheduleModule.forRoot(),
+    SertifikatModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
