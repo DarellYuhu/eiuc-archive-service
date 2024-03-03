@@ -30,20 +30,46 @@ async function main() {
   await prisma.code.createMany({
     data: [
       {
-        code: 'EUIC01',
+        code: 'EIUC01',
         nama: 'Badan Hukum',
       },
       {
-        code: 'EUIC02',
-        nama: 'EUIC Session/Year End/Midyear',
+        code: 'EIUC02',
+        nama: 'EIUC Session/Year End/Midyear',
       },
       {
-        code: 'EUIC03',
-        nama: 'EUIC Executive Committee',
+        code: 'EIUC03',
+        nama: 'EIUC Executive Committee',
       },
       {
-        code: 'EUIC04',
-        nama: 'EUIC Administrative Committee',
+        code: 'EIUC04',
+        nama: 'EIUC Administrative Committee',
+      },
+    ],
+  });
+
+  await prisma.institusi.createMany({
+    data: [
+      {
+        namaInstitusi: 'EIUC',
+      },
+      {
+        namaInstitusi: 'AECS',
+      },
+      {
+        namaInstitusi: 'AAI',
+      },
+      {
+        namaInstitusi: 'RSAM',
+      },
+      {
+        namaInstitusi: 'Unklab',
+      },
+      {
+        namaInstitusi: 'Daerah/Konfrens',
+      },
+      {
+        namaInstitusi: 'None',
       },
     ],
   });
@@ -83,7 +109,7 @@ async function main() {
         namaDaerahKonfrens: 'PM',
       },
       {
-        namaDaerahKonfrens: 'EUIC',
+        namaDaerahKonfrens: 'EIUC',
       },
       {
         namaDaerahKonfrens: 'NIM',

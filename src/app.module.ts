@@ -10,6 +10,7 @@ import configuration from 'config/configuration';
 import { ScheduleModule } from '@nestjs/schedule';
 import { SertifikatModule } from './sertifikat/sertifikat.module';
 import { AuthModule } from './auth/auth.module';
+import { ServiceRecordModule } from './service-record/service-record.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AuthModule } from './auth/auth.module';
     ScheduleModule.forRoot(),
     SertifikatModule,
     AuthModule,
+    ServiceRecordModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

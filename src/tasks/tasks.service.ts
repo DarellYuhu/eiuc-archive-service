@@ -13,6 +13,7 @@ export class TasksService {
     const paths = [
       './public/uploads/administration',
       './public/uploads/sertifikat',
+      './public/uploads/service-record',
     ];
 
     const filenamesFromDB = await this.prisma.file.findMany({

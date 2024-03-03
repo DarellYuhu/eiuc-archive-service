@@ -103,7 +103,7 @@ model ServiceRecord {
   institusiId String
   nama        String
   keterangan  String?
-  noFile      String
+  noLaci      String    @unique
   File        File?     @relation(fields: [fileId], references: [id], onDelete: SetNull)
   fileId      String?
 }
