@@ -1,6 +1,32 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 async function main() {
+  await prisma.user.createMany({
+    data: [
+      {
+        namaLengkap: 'administrator',
+        username: 'admin',
+        password:
+          '$2b$10$8E690c0IzPDH/qtIIlDS6eDDRdKx9tjJg3L0wxhoDxGQdkSu7DntS',
+        role: 'ADMIN',
+      },
+      {
+        namaLengkap: 'operator',
+        username: 'operator',
+        password:
+          '$2b$10$8E690c0IzPDH/qtIIlDS6eDDRdKx9tjJg3L0wxhoDxGQdkSu7DntS',
+        role: 'OPERATOR',
+      },
+      {
+        namaLengkap: 'Happy Sibilang',
+        username: 'sibilang',
+        password:
+          '$2b$10$8E690c0IzPDH/qtIIlDS6eDDRdKx9tjJg3L0wxhoDxGQdkSu7DntS',
+        role: 'USER',
+      },
+    ],
+  });
+
   await prisma.code.createMany({
     data: [
       {
