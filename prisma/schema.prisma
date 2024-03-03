@@ -77,7 +77,8 @@ model Pensiun {
   status     Status
   keterangan String?
   noLaci     String  @unique
-  gambar     String?
+  File       File?   @relation(fields: [fileId], references: [id], onDelete: SetNull)
+  fileId     String?
 }
 
 model Sertifikat {
@@ -131,6 +132,7 @@ model File {
   Sertifikat    Sertifikat[]
   ServiceRecord ServiceRecord[]
   Surat         Surat[]
+  Pensiun       Pensiun[]
 }
 
 enum Role {
