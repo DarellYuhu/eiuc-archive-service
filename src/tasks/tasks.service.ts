@@ -15,6 +15,7 @@ export class TasksService {
       './public/uploads/sertifikat',
       './public/uploads/service-record',
       './public/uploads/retirement',
+      './public/uploads/letter',
     ];
 
     const filenamesFromDB = await this.prisma.file.findMany({

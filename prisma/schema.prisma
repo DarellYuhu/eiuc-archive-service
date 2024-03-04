@@ -116,7 +116,7 @@ model Surat {
   jenis        JenisSurat
   tahun        String
   asal         String
-  topic        String
+  topic        String?
   noLaci       String     @unique
   File         File?      @relation(fields: [fileId], references: [id], onDelete: SetNull)
   fileId       String?

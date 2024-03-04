@@ -146,6 +146,59 @@ async function main() {
       },
     ],
   });
+
+  await prisma.department.createMany({
+    data: [
+      {
+        namaDepartment: 'President',
+      },
+      {
+        namaDepartment: 'Secretariat',
+      },
+      {
+        namaDepartment: 'Treasurer',
+      },
+      {
+        namaDepartment: 'Adventist Mission',
+      },
+      {
+        namaDepartment: 'Children Ministry',
+      },
+      {
+        namaDepartment: 'Family Ministry',
+      },
+      {
+        namaDepartment: 'Womens Ministry',
+      },
+      {
+        namaDepartment: 'Publishing',
+      },
+      {
+        namaDepartment: 'SS/PM',
+      },
+      {
+        namaDepartment: 'Health',
+      },
+      {
+        namaDepartment: 'Shepherdess',
+      },
+      {
+        namaDepartment: 'Education',
+      },
+      {
+        namaDepartment: 'Youth',
+      },
+      {
+        namaDepartment: 'Communication',
+      },
+      {
+        namaDepartment: 'Ministerial',
+      },
+      {
+        namaDepartment: 'Badan Hukum',
+      },
+    ],
+  });
 }
 main()
   .then(async () => {

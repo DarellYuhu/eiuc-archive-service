@@ -12,6 +12,7 @@ import { SertifikatModule } from './sertifikat/sertifikat.module';
 import { AuthModule } from './auth/auth.module';
 import { ServiceRecordModule } from './service-record/service-record.module';
 import { RetirementModule } from './retirement/retirement.module';
+import { LetterModule } from './letter/letter.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { RetirementModule } from './retirement/retirement.module';
     AuthModule,
     ServiceRecordModule,
     RetirementModule,
+    LetterModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
