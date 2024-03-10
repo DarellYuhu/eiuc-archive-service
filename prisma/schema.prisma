@@ -18,121 +18,122 @@ model User {
   role        Role
 }
 
-model Administrasi {
-  id     String  @id @default(uuid())
-  Code   Code    @relation(fields: [codeId], references: [id])
-  codeId String
-  topik  String
-  tahun  String?
-  asal   String?
-  noLaci String  @unique
-  File   File?   @relation(fields: [fileId], references: [id], onDelete: SetNull)
-  fileId String?
+model Administration {
+  id                String      @id @default(uuid())
+  RecordGroup       RecordGroup @relation(fields: [recordGroupId], references: [id])
+  recordGroupId     Int
+  description       String
+  dateSpanOfRecord  String?
+  author            String?
+  location          String      @unique
+  retantionSchedule Int?
+  File              File?       @relation(fields: [fileId], references: [id], onDelete: SetNull)
+  fileId            String?
 }
 
-model Code {
-  id           String         @id @default(uuid())
-  code         String         @unique
-  nama         String
-  Administrasi Administrasi[]
+model RecordGroup {
+  id             Int              @id @default(autoincrement())
+  recordGroup    String           @unique
+  name           String
+  Administration Administration[]
 }
 
-model DaerahKonfrens {
-  id                 String       @id @default(uuid())
-  namaDaerahKonfrens String
-  Sertifikat         Sertifikat[]
+model ConferenceArea {
+  id                 String        @id @default(uuid())
+  conferenceAreaName String
+  Certificate        Certificate[]
 }
 
 model Department {
-  id             String  @id @default(uuid())
-  namaDepartment String
-  Surat          Surat[]
+  id             String   @id @default(uuid())
+  departmentName String
+  Letter         Letter[]
 }
 
-model FisikBangunan {
-  id         String       @id @default(uuid())
-  namaFisik  String
-  Sertifikat Sertifikat[]
+model PhysicalBuilding {
+  id           String        @id @default(uuid())
+  physicalName String
+  Certificate  Certificate[]
 }
 
-model Huruf {
+model Alphabet {
   id String @id @db.Char(1)
 }
 
-model Institusi {
-  id            String          @id @default(uuid())
-  namaInstitusi String
-  ServiceRecord ServiceRecord[]
+model Institution {
+  id              String          @id @default(uuid())
+  institutionName String
+  ServiceRecord   ServiceRecord[]
 }
 
-model Nomor {
+model Number {
   id   String @id @default(uuid())
-  nama String @unique
+  name String @unique
 }
 
-model Pensiun {
-  id         String  @id @default(uuid())
-  nama       String
-  rate       Rate
-  status     Status
-  keterangan String?
-  noLaci     String  @unique
-  File       File?   @relation(fields: [fileId], references: [id], onDelete: SetNull)
-  fileId     String?
-}
-
-model Sertifikat {
-  id               String           @id @default(uuid())
-  DaerahKonfrens   DaerahKonfrens   @relation(fields: [daerahKonfrensId], references: [id])
-  daerahKonfrensId String
-  jemaat           String
-  jenis            JenisSertifikat?
-  sertifikat       String?
-  FisikBangunan    FisikBangunan    @relation(fields: [fisikBangunanId], references: [id])
-  fisikBangunanId  String
-  value            String?
-  keterangan       String?
-  noLaci           String           @unique
-  File             File?            @relation(fields: [fileId], references: [id], onDelete: SetNull)
-  fileId           String?
-}
-
-model ServiceRecord {
-  id          String    @id @default(uuid())
+model Retirement {
+  id          String  @id @default(uuid())
+  name        String
+  rate        Rate
   status      Status
-  Institusi   Institusi @relation(fields: [institusiId], references: [id])
-  institusiId String
-  nama        String
-  keterangan  String?
-  noLaci      String    @unique
-  File        File?     @relation(fields: [fileId], references: [id], onDelete: SetNull)
+  description String?
+  location    String  @unique
+  File        File?   @relation(fields: [fileId], references: [id], onDelete: SetNull)
   fileId      String?
 }
 
-model Surat {
-  id           String     @id @default(uuid())
-  Department   Department @relation(fields: [departmentId], references: [id])
-  departmentId String
-  jenis        JenisSurat
-  tahun        String
-  asal         String
-  topic        String?
-  noLaci       String     @unique
-  File         File?      @relation(fields: [fileId], references: [id], onDelete: SetNull)
-  fileId       String?
+model Certificate {
+  id                 String           @id @default(uuid())
+  ConferenceArea     ConferenceArea   @relation(fields: [conferenceAreaid], references: [id])
+  conferenceAreaid   String
+  congregation       String
+  type               CertificateType?
+  certificate        String?
+  PhysicalBuilding   PhysicalBuilding @relation(fields: [physicalBuildingId], references: [id])
+  physicalBuildingId String
+  value              String?
+  description        String?
+  location           String           @unique
+  File               File?            @relation(fields: [fileId], references: [id], onDelete: SetNull)
+  fileId             String?
+}
+
+model ServiceRecord {
+  id            String      @id @default(uuid())
+  status        Status
+  Institution   Institution @relation(fields: [institutionId], references: [id])
+  institutionId String
+  name          String
+  description   String?
+  location      String      @unique
+  File          File?       @relation(fields: [fileId], references: [id], onDelete: SetNull)
+  fileId        String?
+}
+
+model Letter {
+  id               String     @id @default(uuid())
+  Department       Department @relation(fields: [departmentId], references: [id])
+  departmentId     String
+  type             LetterType
+  dateSpanOfRecord String
+  author           String
+  topic            String?
+  location         String     @unique
+  File             File?      @relation(fields: [fileId], references: [id], onDelete: SetNull)
+  fileId           String?
 }
 
 model File {
-  id            String          @id @default(uuid())
-  filename      String
-  path          String
-  destination   String
-  mimetype      String
-  Administrasi  Administrasi[]
-  Sertifikat    Sertifikat[]
-  ServiceRecord ServiceRecord[]
-  Surat         Surat[]
-  Pensiun       Pensiun[]
+  id             String           @id @default(uuid())
+  filename       String
+  path           String
+  destination    String
+  mimetype       String
+  Administration Administration[]
+  Certificate    Certificate[]
+  ServiceRecord  ServiceRecord[]
+  Letter         Letter[]
+  Retirement     Retirement[]
 }
 
 enum Role {
@@ -151,12 +152,12 @@ enum Status {
   Inactive
 }
 
-enum JenisSertifikat {
+enum CertificateType {
   original
   copy
 }
 
-enum JenisSurat {
+enum LetterType {
   IN
   OUT
   IN_OUT
