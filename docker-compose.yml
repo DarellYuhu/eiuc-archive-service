@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: 'postgresql://postgres:postgres@euic-archive-service-db-1:5432/eiuc-local-deploy'
+      DEV_UPLOAD_PATH: ./public/upload_dev
+      PROD_UPLOAD_PATH: ./public/upload
+      SECRET: mysecret
+    volumes:
+      - fileupload-data:/app/public
+
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: eiuc-local-deploy
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  fileupload-data:
+  postgres-data:
