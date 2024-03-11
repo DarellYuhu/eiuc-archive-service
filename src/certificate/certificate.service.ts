@@ -1,14 +1,15 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { CreateSertifikatDto } from './dto/create-sertifikat.dto';
-import { UpdateSertifikatDto } from './dto/update-sertifikat.dto';
+import { CreateCertificateDto } from './dto/create-certificate.dto';
+import { UpdateCertificateDto } from './dto/update-certificate.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { JenisSertifikat, JenisSurat } from '@prisma/client';
+import { CertificateType } from '@prisma/client';
 
 @Injectable()
-export class SertifikatService {
+export class CertificateService {
   constructor(private prisma: PrismaService) {}
-  create(createSertifikatDto: CreateSertifikatDto) {
-    const { gambar, ...rest } = createSertifikatDto;
+
+  create(createCertificateDto: CreateCertificateDto) {
+    const { gambar, ...rest } = createCertificateDto;
     return this.prisma.$transaction(async (prisma) => {
       let fileId: string | undefined = undefined;
       if (gambar) {
@@ -23,7 +24,7 @@ export class SertifikatService {
         });
         fileId = id;
       }
-      return prisma.sertifikat.create({
+      return prisma.certificate.create({
         data: {
           fileId,
           ...rest,
@@ -37,30 +38,29 @@ export class SertifikatService {
       [field]: { contains: search, mode: 'insensitive' },
     });
     const mainFields = [
-      'jemaat',
-      'sertifikat',
+      'congregation',
+      'certificate',
       'value',
-      'keterangan',
-      'noLaci',
+      'description',
+      'location',
     ];
-    const daerahKonfrensFields = ['namaDaerahKonfrens'];
-    const fisikBangunanFields = ['namaFisik'];
+    const conferenceAreaFields = ['conferenceAreaName'];
+    const physicalBuildingFields = ['physicalName'];
 
-    const data = await this.prisma.sertifikat.findMany({
+    const data = await this.prisma.certificate.findMany({
       where: {
         OR: [
           {
-            jenis:
-              JenisSertifikat[
-                search.toLowerCase() as keyof typeof JenisSertifikat
-              ],
+            type: CertificateType[
+              search?.toLowerCase() as keyof typeof CertificateType
+            ],
           },
           ...mainFields.map(insensitiveContains),
-          ...daerahKonfrensFields.map((field) => ({
-            DaerahKonfrens: insensitiveContains(field),
+          ...conferenceAreaFields.map((field) => ({
+            ConferenceArea: insensitiveContains(field),
           })),
-          ...fisikBangunanFields.map((field) => ({
-            FisikBangunan: insensitiveContains(field),
+          ...physicalBuildingFields.map((field) => ({
+            PhysicalBuilding: insensitiveContains(field),
           })),
         ],
       },
@@ -73,14 +73,14 @@ export class SertifikatService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} sertifikat`;
+    return `This action returns a #${id} certificate`;
   }
 
-  update(id: string, updateSertifikatDto: UpdateSertifikatDto) {
-    const { gambar, ...rest } = updateSertifikatDto;
+  update(id: string, updateCertificateDto: UpdateCertificateDto) {
+    const { gambar, ...rest } = updateCertificateDto;
     return this.prisma.$transaction(async (prisma) => {
       let fileId: string | undefined = undefined;
-      const prevFile = await prisma.sertifikat.findUnique({
+      const prevFile = await prisma.certificate.findUnique({
         where: {
           id,
         },
@@ -105,7 +105,7 @@ export class SertifikatService {
           })
         ).id;
       }
-      return prisma.sertifikat.update({
+      return prisma.certificate.update({
         where: {
           id,
         },
@@ -119,7 +119,7 @@ export class SertifikatService {
 
   remove(id: string) {
     return this.prisma.$transaction(async (prisma) => {
-      const sertifikat = await prisma.sertifikat.delete({
+      const sertifikat = await prisma.certificate.delete({
         where: {
           id,
         },

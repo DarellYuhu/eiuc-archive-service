@@ -36,8 +36,8 @@ export class ServiceRecordService {
     const insensitiveContains = (field: string) => ({
       [field]: { contains: search, mode: 'insensitive' },
     });
-    const mainFields = ['nama', 'keterangan', 'noLaci'];
-    const institusiFields = ['namaInstitusi'];
+    const mainFields = ['name', 'description', 'location'];
+    const institusiFields = ['institutionName'];
 
     const data = await this.prisma.serviceRecord.findMany({
       where: {
@@ -47,7 +47,7 @@ export class ServiceRecordService {
           },
           ...mainFields.map(insensitiveContains),
           ...institusiFields.map((field) => ({
-            Institusi: insensitiveContains(field),
+            Institution: insensitiveContains(field),
           })),
         ],
       },

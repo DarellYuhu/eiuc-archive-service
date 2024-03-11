@@ -21,7 +21,7 @@ model User {
 model Administration {
   id                String      @id @default(uuid())
   RecordGroup       RecordGroup @relation(fields: [recordGroupId], references: [id])
-  recordGroupId     Int
+  recordGroupId     String
   description       String
   dateSpanOfRecord  String?
   author            String?
@@ -32,7 +32,7 @@ model Administration {
 }
 
 model RecordGroup {
-  id             Int              @id @default(autoincrement())
+  id             String           @id @default(uuid())
   recordGroup    String           @unique
   name           String
   Administration Administration[]
@@ -84,8 +84,8 @@ model Retirement {
 
 model Certificate {
   id                 String           @id @default(uuid())
-  ConferenceArea     ConferenceArea   @relation(fields: [conferenceAreaid], references: [id])
-  conferenceAreaid   String
+  ConferenceArea     ConferenceArea   @relation(fields: [conferenceAreaId], references: [id])
+  conferenceAreaId   String
   congregation       String
   type               CertificateType?
   certificate        String?
@@ -117,7 +117,7 @@ model Letter {
   type             LetterType
   dateSpanOfRecord String
   author           String
-  topic            String?
+  description      String?
   location         String     @unique
   File             File?      @relation(fields: [fileId], references: [id], onDelete: SetNull)
   fileId           String?

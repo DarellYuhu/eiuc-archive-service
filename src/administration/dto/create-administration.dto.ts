@@ -1,25 +1,31 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateAdministrationDto {
   @IsNotEmpty()
   @IsString()
-  codeId: string;
+  recordGroupId: string;
 
   @IsNotEmpty()
   @IsString()
-  topik: string;
+  description: string;
 
   @IsString()
   @IsOptional()
-  tahun?: string;
+  dateSpanOfRecord?: string;
 
   @IsString()
   @IsOptional()
-  asal?: string;
+  author?: string;
 
   @IsNotEmpty()
   @IsString()
-  noLaci: string;
+  location: string;
+
+  @IsOptional()
+  @IsNumber({ allowNaN: true })
+  @Transform(({ value }) => parseInt(value))
+  retantionSchedule?: number;
 
   @IsOptional()
   gambar?: Express.Multer.File;

@@ -27,122 +27,122 @@ async function main() {
     ],
   });
 
-  await prisma.code.createMany({
+  await prisma.recordGroup.createMany({
     data: [
       {
-        code: 'EIUC01',
-        nama: 'Badan Hukum',
+        recordGroup: 'EIUC01',
+        name: 'Badan Hukum',
       },
       {
-        code: 'EIUC02',
-        nama: 'EIUC Session/Year End/Midyear',
+        recordGroup: 'EIUC02',
+        name: 'EIUC Session/Year End/Midyear',
       },
       {
-        code: 'EIUC03',
-        nama: 'EIUC Executive Committee',
+        recordGroup: 'EIUC03',
+        name: 'EIUC Executive Committee',
       },
       {
-        code: 'EIUC04',
-        nama: 'EIUC Administrative Committee',
+        recordGroup: 'EIUC04',
+        name: 'EIUC Administrative Committee',
       },
     ],
   });
 
-  await prisma.institusi.createMany({
+  await prisma.institution.createMany({
     data: [
       {
-        namaInstitusi: 'EIUC',
+        institutionName: 'EIUC',
       },
       {
-        namaInstitusi: 'AECS',
+        institutionName: 'AECS',
       },
       {
-        namaInstitusi: 'AAI',
+        institutionName: 'AAI',
       },
       {
-        namaInstitusi: 'RSAM',
+        institutionName: 'RSAM',
       },
       {
-        namaInstitusi: 'Unklab',
+        institutionName: 'Unklab',
       },
       {
-        namaInstitusi: 'Daerah/Konfrens',
+        institutionName: 'Daerah/Konfrens',
       },
       {
-        namaInstitusi: 'None',
+        institutionName: 'None',
       },
     ],
   });
 
-  await prisma.fisikBangunan.createMany({
+  await prisma.physicalBuilding.createMany({
     data: [
       {
-        namaFisik: 'Permanen',
+        physicalName: 'Permanen',
       },
       {
-        namaFisik: 'Semi Permanen',
+        physicalName: 'Semi Permanen',
       },
       {
-        namaFisik: 'Tanah Kosong',
+        physicalName: 'Tanah Kosong',
       },
       {
-        namaFisik: 'Permanen dan Lapangan',
+        physicalName: 'Permanen dan Lapangan',
       },
       {
-        namaFisik: 'Tidak Jelas',
+        physicalName: 'Tidak Jelas',
       },
     ],
   });
 
-  await prisma.daerahKonfrens.createMany({
+  await prisma.conferenceArea.createMany({
     data: [
       {
-        namaDaerahKonfrens: 'WPM',
+        conferenceAreaName: 'WPM',
       },
       {
-        namaDaerahKonfrens: 'UNKLAB',
+        conferenceAreaName: 'UNKLAB',
       },
       {
-        namaDaerahKonfrens: 'NMC',
+        conferenceAreaName: 'NMC',
       },
       {
-        namaDaerahKonfrens: 'PM',
+        conferenceAreaName: 'PM',
       },
       {
-        namaDaerahKonfrens: 'EIUC',
+        conferenceAreaName: 'EIUC',
       },
       {
-        namaDaerahKonfrens: 'NIM',
+        conferenceAreaName: 'NIM',
       },
       {
-        namaDaerahKonfrens: 'MC',
+        conferenceAreaName: 'MC',
       },
       {
-        namaDaerahKonfrens: 'CSM',
+        conferenceAreaName: 'CSM',
       },
       {
-        namaDaerahKonfrens: 'MAH',
+        conferenceAreaName: 'MAH',
       },
       {
-        namaDaerahKonfrens: 'SSC',
+        conferenceAreaName: 'SSC',
       },
       {
-        namaDaerahKonfrens: 'MM',
+        conferenceAreaName: 'MM',
       },
       {
-        namaDaerahKonfrens: 'LTM',
+        conferenceAreaName: 'LTM',
       },
       {
-        namaDaerahKonfrens: 'BGM',
+        conferenceAreaName: 'BGM',
       },
       {
-        namaDaerahKonfrens: 'NMBM',
+        conferenceAreaName: 'NMBM',
       },
       {
-        namaDaerahKonfrens: 'AECS',
+        conferenceAreaName: 'AECS',
       },
       {
-        namaDaerahKonfrens: 'MNMC',
+        conferenceAreaName: 'MNMC',
       },
     ],
   });
@@ -150,52 +150,52 @@ async function main() {
   await prisma.department.createMany({
     data: [
       {
-        namaDepartment: 'President',
+        departmentName: 'President',
       },
       {
-        namaDepartment: 'Secretariat',
+        departmentName: 'Secretariat',
       },
       {
-        namaDepartment: 'Treasurer',
+        departmentName: 'Treasurer',
       },
       {
-        namaDepartment: 'Adventist Mission',
+        departmentName: 'Adventist Mission',
       },
       {
-        namaDepartment: 'Children Ministry',
+        departmentName: 'Children Ministry',
       },
       {
-        namaDepartment: 'Family Ministry',
+        departmentName: 'Family Ministry',
       },
       {
-        namaDepartment: 'Womens Ministry',
+        departmentName: 'Womens Ministry',
       },
       {
-        namaDepartment: 'Publishing',
+        departmentName: 'Publishing',
       },
       {
-        namaDepartment: 'SS/PM',
+        departmentName: 'SS/PM',
       },
       {
-        namaDepartment: 'Health',
+        departmentName: 'Health',
       },
       {
-        namaDepartment: 'Shepherdess',
+        departmentName: 'Shepherdess',
       },
       {
-        namaDepartment: 'Education',
+        departmentName: 'Education',
       },
       {
-        namaDepartment: 'Youth',
+        departmentName: 'Youth',
       },
       {
-        namaDepartment: 'Communication',
+        departmentName: 'Communication',
       },
       {
-        namaDepartment: 'Ministerial',
+        departmentName: 'Ministerial',
       },
       {
-        namaDepartment: 'Badan Hukum',
+        departmentName: 'Badan Hukum',
       },
     ],
   });

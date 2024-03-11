@@ -23,7 +23,7 @@ export class AdministrationService {
         });
         fileId = id;
       }
-      return prisma.administrasi.create({
+      return prisma.administration.create({
         data: {
           fileId,
           ...rest,
@@ -36,14 +36,16 @@ export class AdministrationService {
     const insensitiveContains = (field: string) => ({
       [field]: { contains: search, mode: 'insensitive' },
     });
-    const fields = ['asal', 'noLaci', 'topik', 'tahun'];
-    const codeFields = ['nama', 'code'];
+    const fields = ['author', 'location', 'description', 'dateSpanOfRecord'];
+    const codeFields = ['name', 'recordGroup'];
 
-    const data = await this.prisma.administrasi.findMany({
+    const data = await this.prisma.administration.findMany({
       where: {
         OR: [
           ...fields.map(insensitiveContains),
-          ...codeFields.map((field) => ({ Code: insensitiveContains(field) })),
+          ...codeFields.map((field) => ({
+            RecordGroup: insensitiveContains(field),
+          })),
         ],
       },
     });
@@ -62,7 +64,7 @@ export class AdministrationService {
     const { gambar, ...rest } = updateAdministrationDto;
     return this.prisma.$transaction(async (prisma) => {
       let fileId: string | undefined = undefined;
-      const prevFile = await prisma.administrasi.findUnique({
+      const prevFile = await prisma.administration.findUnique({
         where: {
           id: id,
         },
@@ -87,7 +89,7 @@ export class AdministrationService {
           })
         ).id;
       }
-      return prisma.administrasi.update({
+      return prisma.administration.update({
         where: {
           id,
         },
@@ -101,7 +103,7 @@ export class AdministrationService {
 
   remove(id: string) {
     return this.prisma.$transaction(async (prisma) => {
-      const administration = await prisma.administrasi.delete({
+      const administration = await prisma.administration.delete({
         where: {
           id,
         },

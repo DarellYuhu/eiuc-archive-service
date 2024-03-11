@@ -22,6 +22,7 @@
     "db:migrate": "npx prisma migrate dev",
     "db:seed": "npx prisma db seed",
     "db:reset": "npx prisma migrate reset",
+    "db:reset:noseed": "npx prisma migrate reset --skip-seed",
     "db:deploy": "npx prisma migrate deploy",
     "postinstall": "npx prisma generate"
   },

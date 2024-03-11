@@ -52,8 +52,8 @@ export class RetirementController {
   }
 
   @Get()
-  findAll(@Query('search') Search: string) {
-    return this.retirementService.findAll(Search);
+  findAll(@Query('search') search: string) {
+    return this.retirementService.findAll(search);
   }
 
   @Get(':id')

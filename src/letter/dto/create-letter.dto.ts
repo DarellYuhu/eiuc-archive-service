@@ -1,4 +1,4 @@
-import { JenisSurat } from '@prisma/client';
+import { LetterType } from '@prisma/client';
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateLetterDto {
@@ -8,24 +8,24 @@ export class CreateLetterDto {
 
   @IsString()
   @IsNotEmpty()
-  @IsEnum(JenisSurat)
-  jenis: JenisSurat;
+  @IsEnum(LetterType)
+  type: LetterType;
 
   @IsString()
   @IsNotEmpty()
-  tahun: string;
+  dateSpanOfRecord: string;
 
   @IsString()
   @IsNotEmpty()
-  asal: string;
+  author: string;
 
   @IsString()
   @IsOptional()
-  topic?: string;
+  description?: string;
 
   @IsString()
   @IsNotEmpty()
-  noLaci: string;
+  location: string;
 
   @IsOptional()
   gambar?: Express.Multer.File;

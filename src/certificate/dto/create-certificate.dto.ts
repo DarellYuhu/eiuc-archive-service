@@ -1,27 +1,27 @@
-import { JenisSertifikat } from '@prisma/client';
+import { CertificateType } from '@prisma/client';
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class CreateSertifikatDto {
+export class CreateCertificateDto {
   @IsString()
   @IsNotEmpty()
-  daerahKonfrensId: string;
+  conferenceAreaId: string;
 
   @IsString()
   @IsNotEmpty()
-  jemaat: string;
+  congregation: string;
 
   @IsString()
   @IsOptional()
-  sertifikat?: string;
+  certificate?: string;
 
   @IsString()
   @IsNotEmpty()
-  @IsEnum(JenisSertifikat)
-  jenis: JenisSertifikat;
+  @IsEnum(CertificateType)
+  type: CertificateType;
 
   @IsString()
   @IsNotEmpty()
-  fisikBangunanId: string;
+  physicalBuildingId: string;
 
   @IsString()
   @IsOptional()
@@ -29,11 +29,11 @@ export class CreateSertifikatDto {
 
   @IsString()
   @IsOptional()
-  keterangan?: string;
+  description?: string;
 
   @IsString()
   @IsNotEmpty()
-  noLaci: string;
+  location: string;
 
   @IsOptional()
   gambar: Express.Multer.File;

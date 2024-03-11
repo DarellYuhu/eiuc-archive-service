@@ -2,7 +2,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { CreateLetterDto } from './dto/create-letter.dto';
 import { UpdateLetterDto } from './dto/update-letter.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { JenisSurat } from '@prisma/client';
+import { LetterType } from '@prisma/client';
 
 @Injectable()
 export class LetterService {
@@ -23,7 +23,7 @@ export class LetterService {
         });
         fileId = id;
       }
-      return prisma.surat.create({
+      return prisma.letter.create({
         data: {
           fileId,
           ...rest,
@@ -36,14 +36,19 @@ export class LetterService {
     const insensitiveContains = (field: string) => ({
       [field]: { contains: search, mode: 'insensitive' },
     });
-    const mainFields = ['tahun', 'asal', 'topic', 'noLaci'];
-    const departmentFields = ['namaDepartment'];
+    const mainFields = [
+      'dateSpanOfRecord',
+      'author',
+      'description',
+      'location',
+    ];
+    const departmentFields = ['departmentName'];
 
-    const data = await this.prisma.surat.findMany({
+    const data = await this.prisma.letter.findMany({
       where: {
         OR: [
           {
-            jenis: JenisSurat[search?.toUpperCase() as keyof typeof JenisSurat],
+            type: LetterType[search?.toUpperCase() as keyof typeof LetterType],
           },
           ...mainFields.map(insensitiveContains),
           ...departmentFields.map((field) => ({
@@ -67,7 +72,7 @@ export class LetterService {
     const { gambar, ...rest } = updateLetterDto;
     return this.prisma.$transaction(async (prisma) => {
       let fileId: string | undefined = undefined;
-      const prevFile = await prisma.surat.findUnique({
+      const prevFile = await prisma.letter.findUnique({
         where: {
           id,
         },
@@ -92,7 +97,7 @@ export class LetterService {
           })
         ).id;
       }
-      return prisma.surat.update({
+      return prisma.letter.update({
         where: {
           id,
         },
@@ -106,7 +111,7 @@ export class LetterService {
 
   remove(id: string) {
     return this.prisma.$transaction(async (prisma) => {
-      const surat = await prisma.surat.delete({
+      const surat = await prisma.letter.delete({
         where: {
           id,
         },

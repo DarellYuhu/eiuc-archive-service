@@ -12,7 +12,7 @@ export class TasksService {
   async handleUnusedFile() {
     const paths = [
       './public/uploads/administration',
-      './public/uploads/sertifikat',
+      './public/uploads/certificate',
       './public/uploads/service-record',
       './public/uploads/retirement',
       './public/uploads/letter',

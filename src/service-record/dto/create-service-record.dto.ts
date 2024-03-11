@@ -9,19 +9,19 @@ export class CreateServiceRecordDto {
 
   @IsString()
   @IsNotEmpty()
-  institusiId: string;
+  institutionId: string;
 
   @IsString()
   @IsNotEmpty()
-  nama: string;
+  name: string;
 
   @IsString()
   @IsOptional()
-  keterangan?: string;
+  description?: string;
 
   @IsString()
   @IsNotEmpty()
-  noLaci: string;
+  location: string;
 
   @IsOptional()
   gambar: Express.Multer.File;

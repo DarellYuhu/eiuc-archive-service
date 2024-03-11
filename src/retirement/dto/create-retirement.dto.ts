@@ -4,7 +4,7 @@ import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 export class CreateRetirementDto {
   @IsString()
   @IsNotEmpty()
-  nama: string;
+  name: string;
 
   @IsString()
   @IsNotEmpty()
@@ -18,11 +18,11 @@ export class CreateRetirementDto {
 
   @IsString()
   @IsOptional()
-  keterangan?: string;
+  description?: string;
 
   @IsString()
   @IsNotEmpty()
-  noLaci: string;
+  location: string;
 
   @IsOptional()
   gambar: Express.Multer.File;
