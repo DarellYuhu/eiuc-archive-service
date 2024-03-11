@@ -13,6 +13,13 @@ import { ServiceRecordModule } from './service-record/service-record.module';
 import { RetirementModule } from './retirement/retirement.module';
 import { LetterModule } from './letter/letter.module';
 import { CertificateModule } from './certificate/certificate.module';
+import { RecordGroupModule } from './record-group/record-group.module';
+import { ConferenceAreaModule } from './conference-area/conference-area.module';
+import { DepartmentModule } from './department/department.module';
+import { PhysicalBuildingModule } from './physical-building/physical-building.module';
+import { AlphabetModule } from './alphabet/alphabet.module';
+import { InstitutionModule } from './institution/institution.module';
+import { NumberModule } from './number/number.module';
 
 @Module({
   imports: [
@@ -26,6 +33,13 @@ import { CertificateModule } from './certificate/certificate.module';
     RetirementModule,
     LetterModule,
     CertificateModule,
+    RecordGroupModule,
+    ConferenceAreaModule,
+    DepartmentModule,
+    PhysicalBuildingModule,
+    AlphabetModule,
+    InstitutionModule,
+    NumberModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
